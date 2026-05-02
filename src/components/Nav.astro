@@ -1,8 +1,8 @@
 ---
 const navItems = [
-  { name: "Posts", path: "/blog" },
-  { name: "Resume", path: "/projects" },
-  { name: "Contact", path: "/projects" },
+  { name: "Projects", path: "/blog" },
+  { name: "Resume", path: "/resume" },
+  { name: "Contact", path: "/contact" },
 ];
 ---
 
@@ -16,7 +16,7 @@ const navItems = [
         navItems.map((item) => (
           <a
             href={item.path}
-            class="transition-all hover:text-[#ededed] flex align-middle relative py-1  text-[#a1a1a1]"
+            class="transition-all flex align-middle relative py-1 font-semibold hover:text-emerald-500"
           >
             {item.name}
           </a>

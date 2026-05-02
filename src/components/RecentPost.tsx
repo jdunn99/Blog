@@ -4,7 +4,7 @@ interface Props {
   date: Date;
   url: string;
   github?: string;
-  image?: string;
+  image?: any;
 }
 
 export default function RecentPost({
@@ -16,16 +16,18 @@ export default function RecentPost({
   image,
 }: Props) {
   return (
-    <div className="group flex flex-row items-start gap-4 md:gap-8 py-8 border-b border-[#222] last:border-0">
-      <div className="w-32 h-24 md:w-48 md:h-32 shrink-0 bg-[#1a1a1a] rounded-lg md:rounded-xl overflow-hidden border border-[#333] transition-colors group-hover:border-[#444]">
+    <div className="group flex flex-row items-center gap-4 md:gap-8 py-4 border-b last:border-0">
+      <div className="aspect-video h-shrink-0  rounded-lg md:rounded-xl overflow-hidden border border-zinc-200 transition-colors group-hover:border-zinc-400">
         {image ? (
           <img
-            src={image}
+            src={image.src}
+            width={400}
+            height={225}
             alt={title}
-            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+            className="w-[400px] h-[225px] object-fill opacity-80 group-hover:opacity-100 transition-opacity"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-[#333]">
+          <div className="w-full h-full flex items-center justify-center ">
             <svg
               width="24"
               height="24"
@@ -43,7 +45,7 @@ export default function RecentPost({
       </div>
 
       <div className="flex flex-col min-w-0">
-        <div className="text-[10px] md:text-xs font-medium text-[#a1a1a1] uppercase tracking-widest mb-1 md:mb-2">
+        <div className="text-[10px] md:text-xs font-medium  uppercase tracking-widest mb-1 md:mb-2">
           {date.toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
@@ -52,7 +54,7 @@ export default function RecentPost({
         </div>
         <a
           href={url}
-          className="text-base md:text-xl font-bold text-[#ededed] hover:text-blue-400 transition-colors leading-tight mb-2"
+          className="text-base md:text-xl font-bold text-emerald-500 hover:text-emerald-600 transition-colors leading-tight mb-2"
         >
           {title}
         </a>
@@ -60,18 +62,6 @@ export default function RecentPost({
         <p className="text-[#a1a1a1] leading-relaxed mb-3 text-sm hidden md:line-clamp-2">
           {description}
         </p>
-        <div className="flex items-center gap-3">
-          {github && (
-            <a
-              href={github}
-              target="_blank"
-              className="text-[#a1a1a1] hover:text-[#ededed] transition-colors inline-flex items-center gap-2 bg-gray-900 py-2 px-4 text-sm rounded border-gray-800 border"
-              aria-label="View Github"
-            >
-              View Code
-            </a>
-          )}
-        </div>
       </div>
     </div>
   );

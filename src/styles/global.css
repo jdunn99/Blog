@@ -1,11 +1,26 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@theme {
+  --color-brand-primary: var(--color-emerald-500);
+  --color-brand-hover: var(--color-emerald-600);
+
+  /* The "Protocol" background is pure white, but uses a subtle 
+     zinc-50 for secondary areas and zinc-900 for primary text */
+  --color-text-main: var(--color-zinc-900);
+  --color-text-muted: var(--color-zinc-600);
+  --color-border-light: var(--color-zinc-200);
+}
+
 @layer base {
   .prose h1 {
     @apply font-semibold tracking-tight text-[#ededed];
   }
   .prose p {
     @apply text-[#a1a1a1] leading-relaxed;
+  }
+
+  body {
+    @apply bg-white text-zinc-900 antialiased selection:bg-emerald-100 selection:text-emerald-900;
   }
 }

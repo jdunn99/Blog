@@ -6,10 +6,12 @@ import RecentPost from "../components/RecentPost";
 // 1. Fetch all posts
 const allPosts = await getCollection("blog");
 
+console.log(allPosts[1]);
+
 // 2. Sort by date (Newest first) and take the top 5
 const recentPosts = allPosts
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 5);
+  .slice(0, 3);
 ---
 
 <html lang="en">
@@ -25,15 +27,15 @@ const recentPosts = allPosts
   <Layout>
     <h1 class="text-2xl font-medium mb-8">Jack Dunn</h1>
 
-    <div class="space-y-6 text-[#a1a1a1] leading-relaxed">
+    <div class="space-y-6 leading-relaxed">
       <p>
         I'm a recent mathematics graduate from SNHU and former web developer.
         <br />
         <br />
         Now, I'm focused on actuarial science. I have passed
-        <span class="font-bold">Exam FM (December 2025)</span> and
-        <span class="font-bold">Exam P (March 2026)</span>. I am currently
-        looking for full-time positions.
+        <span class="font-bold text-emerald-500">Exam FM (December 2025)</span> and
+        <span class="font-bold text-emerald-500">Exam P (March 2026)</span>. I
+        am currently looking for full-time positions.
       </p>
 
       <p>
@@ -43,8 +45,8 @@ const recentPosts = allPosts
     </div>
 
     <section class="mt-12">
-      <h2 class="text-[#ededed] font-medium text-xl">Recent Projects</h2>
-      <ul class="">
+      <h2 class="font-medium text-xl">Recent Projects</h2>
+      <ul class="mt-4">
         {
           recentPosts.map((post) => (
             <li class="group">

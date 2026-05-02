@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import RecentPost from "../../components/RecentPost";
+import BlogCard from "../../components/BlogCard";
+
+// 1. Fetch all posts
+const allPosts = await getCollection("blog");
+
+// 2. Sort by date (Newest first) and take the top 5
+let recentPosts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+for (let i = 0; i < 10; ++i) {
+  recentPosts = [...recentPosts, recentPosts[0]];
+}
+
+const latestPost = recentPosts.shift();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+
+  <Layout>
+    <h1 class="text-2xl font-medium mb-8">Projects</h1>
+
+    <div
+      class="group relative flex flex-row items-center gap-8 p-6 rounded-2xl border bg-zinc-50 border-zinc-100 transition-all hover:border-emerald-200/50 my-6"
+    >
+      {
+        typeof latestPost !== "undefined" ? (
+          <RecentPost {...latestPost!.data} url={`/blog/${latestPost!.id}`} />
+        ) : null
+      }
+    </div>
+
+    <section class="">
+      <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {
+          recentPosts.map((post) => (
+            <li class="group">
+              <BlogCard {...post.data} url={`/blog/${post.id}`} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </Layout>
+</html>
